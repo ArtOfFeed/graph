@@ -1,6 +1,6 @@
 export const styles = theme => ({
   searchRoot: {
-    paddingBottom: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3,
     minHeight: theme.spacing.unit * 6,
     display: 'flex',
   },

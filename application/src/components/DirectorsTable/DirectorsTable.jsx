@@ -21,24 +21,24 @@ class DirectorsTable extends React.Component {
   state = {
     anchorEl: null,
     openDialog: false,
-    name: ''
+    name: '',
   };
 
-  handleChange = name => (e) => {
-    this.setState({[name]: e.target.value})
-  }
+  handleChange = name => (event) => {
+    this.setState({ [name]: event.target.value });
+  };
 
   handleSearch = (e) => {
-    const {data} = this.props;
-    const {name} = this.state;
+    const { data } = this.props;
+    const { name } = this.state;
 
-    if (e.charCode === 13) {
+    if(e.charCode === 13) {
       data.fetchMore({
-        variables: {name},
-        updateQuery: (previousResult, {fetchMoreResult}) => fetchMoreResult
-      })
+        variables: { name },
+        updateQuery: (previousResult, { fetchMoreResult }) => fetchMoreResult,
+      });
     }
-  }
+  };
 
   handleDialogOpen = () => { this.setState({ openDialog: true }); };
   handleDialogClose = () => { this.setState({ openDialog: false }); };
