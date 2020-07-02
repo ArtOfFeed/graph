@@ -30,4 +30,4 @@ app.use('/graphql', graphHTTP({
 
 app.listen(PORT, err => {
     err ? console.log(error) : console.log('Server started');
-})
+});

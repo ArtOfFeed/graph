@@ -1,12 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
-import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
@@ -21,17 +16,16 @@ class MoviesForm extends React.Component {
 
   handleSave = () => {
     const { selectedValue, onClose, addMovie, updateMovie } = this.props;
-    const { id, name, genre, rate, directorId, watched } = selectedValue;
+    const { id, name, genre, rate, watched } = selectedValue;
     id ?
-    updateMovie({id, name, genre, rate: Number(rate), directorId, watched: Boolean(watched) }) :
-    addMovie({ name, genre, rate: Number(rate), directorId, watched: Boolean(watched) });
+    updateMovie({id, name, genre, rate: Number(rate), watched: Boolean(watched) }) :
+    addMovie({ name, genre, rate: Number(rate), watched: Boolean(watched) });
     onClose();
   };
 
   render() {
-    const { data = {}, classes, open, handleChange, handleSelectChange, handleCheckboxChange, selectedValue = {} } = this.props;
-    const { name, genre, rate, directorId, watched } = selectedValue;
-    const { directors = [] } = data;
+    const { classes, open, handleChange, handleCheckboxChange, selectedValue = {} } = this.props;
+    const { name, genre, rate, watched } = selectedValue;
 
     return (
       <Dialog onClose={this.handleClose} open={open} aria-labelledby="simple-dialog-title">
@@ -65,21 +59,6 @@ class MoviesForm extends React.Component {
             margin="normal"
             variant="outlined"
           />
-          <FormControl variant="outlined" className={classes.formControlSelect}>
-            <InputLabel
-              ref={ref => { this.InputLabelRef = ref; }}
-              htmlFor="outlined-age-simple"
-            >
-              Director
-            </InputLabel>
-            <Select
-              value={directorId}
-              onChange={handleSelectChange}
-              input={<OutlinedInput name="directorId" id="outlined-director" labelWidth={57} />}
-            >
-            {directors.map(director => <MenuItem key={director.id} value={director.id}>{director.name}</MenuItem>)}
-            </Select>
-          </FormControl>
           <div className={classes.wrapper}>
             <FormControlLabel
               control={<Checkbox checked={watched} onChange={handleCheckboxChange('watched')} value="watched" />}

@@ -4,7 +4,6 @@ import { graphql } from 'react-apollo';
 
 import { addMovieMutation, updateMovieMutation } from './mutations';
 import { moviesQuery } from '../MoviesTable/queries';
-import { directorsQuery } from './queries';
 
 import { styles } from './styles';
 
@@ -29,11 +28,6 @@ const withGraphQL = compose(
           variables: { name: '' },
         }],
       }),
-    }),
-  }),
-  graphql(directorsQuery, {
-    options: ({ name = '' }) => ({
-      variables: { name },
     }),
   }),
 );
