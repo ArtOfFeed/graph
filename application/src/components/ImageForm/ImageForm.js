@@ -23,7 +23,6 @@ const ImageForm = ({closeForm, id, name, description, color, text, position, ima
 
   const uploadImage = async (e) => {
     const file = e.target.files[0];
-    console.log(file);
     const data = new FormData();
 
     data.append('file', file);
@@ -38,7 +37,7 @@ const ImageForm = ({closeForm, id, name, description, color, text, position, ima
     );
 
     const uploadedImg = await res.json();
-    console.log(uploadedImg, uploadedImg.secure_url);
+
     setImageValue(uploadedImg.secure_url);
     setLabelName(file.name);
   };
@@ -62,7 +61,6 @@ const ImageForm = ({closeForm, id, name, description, color, text, position, ima
               values.image = imageValue;
               const result = adding ? {...values} : {...values, ...id};
               if (adding) {
-                console.log(result);
                 addImage(result);
               } else {
                 updateImage(result);

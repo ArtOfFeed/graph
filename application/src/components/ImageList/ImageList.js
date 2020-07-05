@@ -8,7 +8,6 @@ import withHoc from './index';
 import Preloader from "../Preloader/Preloader";
 
 const ImageList = ({data: {images, loading}}) => {
-  console.log('data', images, loading);
   const [showedForm, setShowedForm] = useState(false);
   return (
     <MainWrapper>
