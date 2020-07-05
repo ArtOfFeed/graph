@@ -2,60 +2,68 @@ const graphql = require('graphql');
 
 const {GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt, GraphQLBoolean} = graphql;
 
-const Movies = require('../models/movie');
+const Images = require('../models/movie');
 
-const MovieType = new GraphQLObjectType({
-    name: 'Movie',
+const ImageType = new GraphQLObjectType({
+    name: 'Image',
     fields: () => ({
         id: {type: GraphQLID},
         name: {type: new graphql.GraphQLNonNull(GraphQLString)},
-        genre: {type: new graphql.GraphQLNonNull(GraphQLString)},
-        watched: {type: new graphql.GraphQLNonNull(GraphQLBoolean)},
-        rate: {type: GraphQLInt}
+        description: {type: new graphql.GraphQLNonNull(GraphQLString)},
+        color: {type: new graphql.GraphQLNonNull(GraphQLString)},
+        text: {type: new graphql.GraphQLNonNull(GraphQLString)},
+        position: {type: new graphql.GraphQLNonNull(GraphQLString)},
+        image: {type: new graphql.GraphQLNonNull(GraphQLString)},
     }),
 });
 
 const Mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: {
-        addMovie: {
-            type: MovieType,
+        addImage: {
+            type: ImageType,
             args: {
                 name: {type: new graphql.GraphQLNonNull(GraphQLString)},
-                genre: {type: new graphql.GraphQLNonNull(GraphQLString)},
-                watched: {type: new graphql.GraphQLNonNull(GraphQLBoolean)},
-                rate: {type: GraphQLInt},
+                description: {type: new graphql.GraphQLNonNull(GraphQLString)},
+                color: {type: new graphql.GraphQLNonNull(GraphQLString)},
+                text: {type: new graphql.GraphQLNonNull(GraphQLString)},
+                position: {type: new graphql.GraphQLNonNull(GraphQLString)},
+                image: {type: new graphql.GraphQLNonNull(GraphQLString)},
             },
-            resolve(parent, {name, genre, watched, rate}) {
-                const movie = new Movies({
+            resolve(parent, {name, description, color, text, position, image}) {
+                const img = new Images({
                     name,
-                    genre,
-                    watched,
-                    rate,
+                    description,
+                    color,
+                    text,
+                    position,
+                    image
                 });
-                return movie.save();
+                return img.save();
             },
         },
-        deleteMovie: {
-            type: MovieType,
+        deleteImage: {
+            type: ImageType,
             args: {id: {type: GraphQLID}},
             resolve(parent, {id}) {
-                return Movies.findByIdAndRemove(id);
+                return Images.findByIdAndRemove(id);
             }
         },
-        updateMovie: {
-            type: MovieType,
+        updateImage: {
+            type: ImageType,
             args: {
                 id: {type: GraphQLID},
                 name: {type: new graphql.GraphQLNonNull(GraphQLString)},
-                genre: {type: new graphql.GraphQLNonNull(GraphQLString)},
-                watched: {type: new graphql.GraphQLNonNull(GraphQLBoolean)},
-                rate: {type: GraphQLInt},
+                description: {type: new graphql.GraphQLNonNull(GraphQLString)},
+                color: {type: new graphql.GraphQLNonNull(GraphQLString)},
+                text: {type: new graphql.GraphQLNonNull(GraphQLString)},
+                position: {type: new graphql.GraphQLNonNull(GraphQLString)},
+                image: {type: new graphql.GraphQLNonNull(GraphQLString)},
             },
-            resolve(parent, {id, name, genre, watched, rate}) {
-                return Movies.findByIdAndUpdate(
+            resolve(parent, {id, name, description, color, text, position, image}) {
+                return Images.findByIdAndUpdate(
                     id,
-                    {$set: {name, genre, watched, rate}},
+                    {$set: {name, description, color, text, position, image}},
                     {new: true},
                 );
             },
@@ -66,20 +74,20 @@ const Mutation = new GraphQLObjectType({
 const Query = new GraphQLObjectType({
     name: 'Query',
     fields: {
-        movie: {
-            type: MovieType,
+        image: {
+            type: ImageType,
             args: {id: {type: GraphQLID}},
             resolve(parent, {id}) {
-                return Movies.findById(id);
+                return Images.findById(id);
             },
         },
-        movies: {
-            type: new graphql.GraphQLList(MovieType),
+        images: {
+            type: new graphql.GraphQLList(ImageType),
             args: {
                 name: {type: GraphQLString}
             },
             resolve(parent, {name}) {
-                return Movies.find({name: {$regex: name, $options: "i"}});
+                return Images.find({name: {$regex: name, $options: "i"}});
             }
         }
     }

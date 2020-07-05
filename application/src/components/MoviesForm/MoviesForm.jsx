@@ -72,6 +72,6 @@ class MoviesForm extends React.Component {
       </Dialog>
     );
   }
-};
+}
 
-  export default withHocs(MoviesForm);
+export default withHocs(MoviesForm);

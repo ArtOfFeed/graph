@@ -8,6 +8,7 @@ const app = express();
 const PORT = 3005;
 
 const uri = "mongodb+srv://vovk:147456@cluster0-hpnca.mongodb.net/db?retryWrites=true&w=majority";
+//I know that private variable should be inside dotenv file but now too late and I want sleep
 
 mongoose.connect(
     uri,

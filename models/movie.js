@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const movieSchema = new Schema({
+const imageSchema = new Schema({
     name: String,
-    genre: String,
-    watched: Boolean,
-    rate: Number
-})
+    description: String,
+    text: String,
+    color: String,
+    position: String,
+    image: String
+});
 
-module.exports = mongoose.model('Movie', movieSchema);
+module.exports = mongoose.model('Image', imageSchema);

@@ -14,6 +14,7 @@ class Movies extends React.Component {
     genre: '',
     watched: false,
     rate: 0,
+    color: null
   };
 
   handleClickOpen = (data = {}) => {
